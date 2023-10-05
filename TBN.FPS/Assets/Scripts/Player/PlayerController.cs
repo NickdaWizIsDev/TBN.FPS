@@ -9,21 +9,22 @@ public class PlayerController : MonoBehaviour
     public Canvas gameOver;
     public AudioSource music;
     public Transform cam;
+    public GameObject sword;
+    public GameObject gun;
+    public GameObject rifle;
     private CharacterController controller;
-    [SerializeField] private Vector3 velocity;
     private Animator animator;
     private Damageable damageable;
-    private TouchingDirections touching;
 
     public AudioSource audioSource;
     public AudioClip land;
 
-    Vector2 moveInput;
+    [SerializeField]Vector2 moveInput;
+    [SerializeField] private Vector3 velocity;
     public float runSpeed = 5f;
     public float jumpForce = 2f;
     public float fallSpeed = -10f;
     public float gravity = -9.81f;
-    private Vector2 currentDirVel;
 
     public float sensitivity = 3.5f;
     public float camPitch = 0.0f;
@@ -97,6 +98,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         velocity.x = controller.velocity.x;
+        velocity.z = controller.velocity.z;
 
         // Check if the player is grounded
         isGrounded = controller.isGrounded;
@@ -104,15 +106,15 @@ public class PlayerController : MonoBehaviour
         // Gravity application
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -5f;
+            velocity.y = fallSpeed;
         }
         else if (!isGrounded)
         {
-            velocity.y = Mathf.Lerp(velocity.y, fallSpeed, 1.5f * Time.deltaTime);
+            velocity.y = Mathf.Lerp(velocity.y, gravity, 1.5f * Time.deltaTime);
         }
 
 
-        animator.SetFloat(AnimationStrings.yVelocity, controller.velocity.y);
+        animator.SetFloat(AnimationStrings.yVelocity, velocity.y);
         animator.SetBool(AnimationStrings.isGrounded, isGrounded);
 
         if (!damageable.IsAlive)
@@ -122,18 +124,26 @@ public class PlayerController : MonoBehaviour
             music.Stop();
         }
 
+        // Apply gravity
+        controller.Move(velocity * Time.deltaTime);
+
         UpdateMouseAim();
-        UpdateMovement();
     }
 
     private void FixedUpdate()
     {
+        // Calculate movement direction based on camera rotation
+        Vector3 moveDirection = (cam.forward * moveInput.y + cam.right * moveInput.x).normalized;
 
+        // Apply the movement
+        Vector3 moveVelocity = moveDirection * CurrentMoveSpeed;
+        moveVelocity.y = velocity.y;
+        controller.Move(moveVelocity * Time.deltaTime);
     }
 
     public void UpdateMouseAim()
     {
-        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 mouseDelta = new (Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
         transform.Rotate(Vector3.up * mouseDelta.x * sensitivity);
 
@@ -143,17 +153,12 @@ public class PlayerController : MonoBehaviour
         cam.localEulerAngles = Vector3.right * camPitch;
     }
 
-    public void UpdateMovement()
+    public void OnMove(InputAction.CallbackContext context)
     {
-        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        targetDir.Normalize();
-
-        moveInput = Vector2.SmoothDamp(moveInput, targetDir, ref currentDirVel, .35f);
-
-        Vector3 velocity = (transform.forward * moveInput.y + transform.right * moveInput.x) * CurrentMoveSpeed;
-
-        controller.Move(velocity * Time.deltaTime);
+        moveInput = context.ReadValue<Vector2>();
+        IsMoving = moveInput != Vector2.zero;
     }
+
 
     public void OnJump(InputAction.CallbackContext context)
     {
@@ -165,6 +170,19 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger(AnimationStrings.jump);
                 Debug.Log("Jump!");
             }
+        }
+
+        else if (context.canceled)
+        {
+            velocity.y *= .5f;
+        }
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        if(context.started && sword.activeSelf == true)
+        {
+            animator.SetTrigger(AnimationStrings.atk);
         }
     }
 
