@@ -6,8 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Objects")]
     public Canvas gameOver;
-    public AudioSource music;
     public Transform cam;
     public GameObject sword;
     public GameObject gun;
@@ -16,20 +16,24 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private Damageable damageable;
 
+    [Header("Audio")]
     public AudioSource audioSource;
     public AudioClip land;
 
-    [SerializeField]Vector2 moveInput;
-    [SerializeField] private Vector3 velocity;
+    [Header("Movement Info")]
+    public Vector2 moveInput;
+    public Vector3 velocity;
     public float runSpeed = 5f;
     public float jumpForce = 2f;
     public float fallSpeed = -10f;
     public float gravity = -9.81f;
 
+    [Header("Cam Attributes")]
     public float sensitivity = 3.5f;
     public float camPitch = 0.0f;
     public bool lockCursor = true;
 
+    // --Setters-- //
     public float CurrentMoveSpeed
     {
         get
@@ -76,6 +80,9 @@ public class PlayerController : MonoBehaviour
             return animator.GetBool(AnimationStrings.canMove);
         }
     }
+    // --Setters-- //
+
+    [Header("Bools")]
     public bool isGrounded;
 
     void Awake()
@@ -121,7 +128,6 @@ public class PlayerController : MonoBehaviour
         {
             Time.timeScale = 0f;
             gameOver.gameObject.SetActive(true);
-            music.Stop();
         }
 
         // Apply gravity
@@ -145,7 +151,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 mouseDelta = new (Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
-        transform.Rotate(Vector3.up * mouseDelta.x * sensitivity);
+        transform.Rotate(mouseDelta.x * sensitivity * Vector3.up);
 
         camPitch -= mouseDelta.y * sensitivity;
         camPitch = Mathf.Clamp(camPitch, -90f, 90f);
