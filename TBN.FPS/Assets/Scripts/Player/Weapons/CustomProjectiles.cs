@@ -240,7 +240,7 @@ public class CustomProjectiles : MonoBehaviour
         {
            instExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
 
-            Destroy(instExplosion, 0.1f);
+            Destroy(instExplosion, 0.5f);
         }
 
         //Check for enemies and damage them
@@ -511,7 +511,7 @@ public class CustomProjectiles : MonoBehaviour
     {
         Vector3 dashDirection = transform.position - player.transform.position;
 
-        player.GetComponent<playerMovement>().DashInDirection(dashDirection.normalized, dashForce);
+        //player.GetComponent<playerMovement>().DashInDirection(dashDirection.normalized, dashForce);
     }
 
     private IEnumerator SaveVelocity()
