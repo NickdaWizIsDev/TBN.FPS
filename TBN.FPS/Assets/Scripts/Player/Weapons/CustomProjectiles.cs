@@ -235,12 +235,15 @@ public class CustomProjectiles : MonoBehaviour
 
         Debug.Log("Explode");
 
+        rb.velocity = Vector3.zero;
+        rb.isKinematic = true;
+
         //Instantiate explosion if attatched
         if (explosion != null)
         {
            instExplosion = Instantiate(explosion, transform.position, Quaternion.identity);
 
-            Destroy(instExplosion, 0.5f);
+           Destroy(instExplosion, 1f);
         }
 
         //Check for enemies and damage them
@@ -266,7 +269,7 @@ public class CustomProjectiles : MonoBehaviour
         //Invoke destruction
         GetComponent<MeshRenderer>().enabled = false;
         GetComponent<TrailRenderer>().emitting = false;
-        Destroy(gameObject, 0.1f);
+        Destroy(gameObject, 0.3f);
 
         //Spawn second bullets and add forces (if second bullet attatched
         if (secondBullet == null) return;

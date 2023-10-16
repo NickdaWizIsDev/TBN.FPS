@@ -105,8 +105,8 @@ public class ProjectileGun : MonoBehaviour
         //Activate bullet
         if (currentBullet.GetComponent<CustomProjectiles>()) currentBullet.GetComponent<CustomProjectiles>().activated = true;
 
-        GameObject flash = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity);
-        Destroy(flash, 0.1f);
+        GameObject flash = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity, gameObject.transform);
+        Destroy(flash, 0.5f);
 
         //Shake Camera
         //camShake.StartCoroutine(camShake.Shake(camShakeDuration, camShakeMagnitude));
