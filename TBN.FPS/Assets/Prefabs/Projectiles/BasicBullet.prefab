@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: -0, y: -0, z: -0.2382}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4904636926826036866}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -101,8 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activated: 1
   rb: {fileID: 3516065500906399722}
-  explosion: {fileID: 924385698551278738, guid: 26d7cbf3864b1f84cb93f20ea9ca807f,
-    type: 3}
+  explosion: {fileID: 1337198075554910, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
   whatIsEnemies:
     serializedVersion: 2
     m_Bits: 3080
@@ -181,7 +181,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 66cd140ae43f65c438cbd2c22b47a94b, type: 2}
+  - {fileID: 2100000, guid: d3354b49e3f41ac4d9a324a812a301c5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -224,7 +224,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -288,3 +288,108 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!1001 &5857597220126647482
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7667253668683486083}
+    m_Modifications:
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533818, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533818, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Name
+      value: New Color 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533818, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.y
+      value: 24.094118
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533818, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Value.z
+      value: 766.9961
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533818, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_PropertySheet.m_Vector4f.m_Array.Array.data[1].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1538710377268533823, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_Name
+      value: New VFX
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792888261950172256, guid: 0298c7bc00eb29041803b364e68233aa,
+        type: 3}
+      propertyPath: m_materialData.Array.data[0].m_move
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0298c7bc00eb29041803b364e68233aa, type: 3}
+--- !u!4 &4904636926826036866 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1538710377268533816, guid: 0298c7bc00eb29041803b364e68233aa,
+    type: 3}
+  m_PrefabInstance: {fileID: 5857597220126647482}
+  m_PrefabAsset: {fileID: 0}
