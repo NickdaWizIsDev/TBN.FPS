@@ -70,9 +70,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public bool crouching;
     public bool wallrunning;
 
-    public TextMeshProUGUI text_speed;
-    public TextMeshProUGUI text_mode;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -91,7 +88,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
         MyInput();
         SpeedControl();
         StateHandler();
-        TextStuff();
 
         // handle drag
         if (grounded)
@@ -309,19 +305,6 @@ public class PlayerMovementAdvanced : MonoBehaviour
     public Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal).normalized;
-    }
-
-    private void TextStuff()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        if (OnSlope())
-            text_speed.SetText("Speed: " + Round(rb.velocity.magnitude, 1));
-
-        else
-            text_speed.SetText("Speed: " + Round(flatVel.magnitude, 1));
-
-        text_mode.SetText(state.ToString());
     }
 
     public static float Round(float value, int digits)

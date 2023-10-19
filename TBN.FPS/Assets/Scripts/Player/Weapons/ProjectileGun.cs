@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 /// Thanks for downloading my projectile gun script! :D
 /// Feel free to use it in any project you like!
@@ -18,41 +19,38 @@ public class ProjectileGun : MonoBehaviour
     public GameObject bullet;
 
     //Gun stats
-    public float shootForce, upwardForce;
+    public float shootForce;
     public float timeBetweenShooting, spread, reloadTime, timeBetweenShots;
-    public int magazineSize, bulletsPerTap;
+    public int bulletsPerTap;
     public bool allowButtonHold;
-    int bulletsLeft, bulletsShot;
+    int bulletsShot;
 
     //recoil
     public Rigidbody playerRb;
     public float recoilForce;
 
     //some bools
-    bool shooting, readyToShoot, reloading;
+    bool shooting, readyToShoot;
 
-    public Camera fpsCam;
+    public Camera playerCam;
     public GameObject muzzleFlash;
     public Transform attackPoint;
 
     //Show bullet amount
-    //public CamShake camShake;
-    //public float camShakeMagnitude, camShakeDuration;
-    public TextMeshProUGUI text;
+    public Sprite weapon;
+    public Image weaponDisplay;
 
     public bool allowInvoke = true;
 
     private void Start()
     {
-        bulletsLeft = magazineSize;
         readyToShoot = true;
     }
     void Update()
     {
         MyInput();
 
-        //Set Text
-        text.SetText(bulletsLeft / bulletsPerTap + " / " + magazineSize / bulletsPerTap);
+        //weaponDisplay.sprite = weapon;
     }
     private void MyInput()
     {
@@ -60,10 +58,8 @@ public class ProjectileGun : MonoBehaviour
         if (allowButtonHold) shooting = Input.GetKey(KeyCode.Mouse0);
         else shooting = Input.GetKeyDown(KeyCode.Mouse0);
 
-        if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && !reloading) Reload();
-
         //Shoot
-        if (readyToShoot && shooting && !reloading && bulletsLeft > 0){
+        if (readyToShoot && shooting){
             bulletsShot = bulletsPerTap;
             Shoot(); //Function has to be after bulletsShot = bulletsPerTap
         }
@@ -75,7 +71,7 @@ public class ProjectileGun : MonoBehaviour
         readyToShoot = false;
 
         //Find the hit position using a raycast
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray = playerCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit;
         //Check if the ray hits something
         Vector3 targetPoint;
@@ -101,17 +97,12 @@ public class ProjectileGun : MonoBehaviour
 
         //AddForce
         currentBullet.GetComponent<Rigidbody>().AddForce(directionWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(fpsCam.transform.up * upwardForce, ForceMode.Impulse);
         //Activate bullet
         if (currentBullet.GetComponent<CustomProjectiles>()) currentBullet.GetComponent<CustomProjectiles>().activated = true;
 
         GameObject flash = Instantiate(muzzleFlash, attackPoint.position, Quaternion.identity, gameObject.transform);
         Destroy(flash, 0.5f);
 
-        //Shake Camera
-        //camShake.StartCoroutine(camShake.Shake(camShakeDuration, camShakeMagnitude));
-
-        bulletsLeft--;
         bulletsShot--;
 
         if (allowInvoke)
@@ -120,10 +111,10 @@ public class ProjectileGun : MonoBehaviour
             allowInvoke = false;
 
             //Add recoil force to player (should only be called once)
-            playerRb.AddForce(-directionWithSpread.normalized * recoilForce, ForceMode.Impulse);
+            playerRb.AddForce(-directionWithoutSpread.normalized * recoilForce, ForceMode.Impulse);
         }
 
-        if (bulletsShot > 0 && bulletsLeft > 0)
+        if (bulletsShot > 0)
             Invoke("Shoot", timeBetweenShots);
     }
     private void ShotReset()
@@ -131,27 +122,12 @@ public class ProjectileGun : MonoBehaviour
         readyToShoot = true;
         allowInvoke = true;
     }
-    private void Reload()
-    {
-        reloading = true;
-
-        Invoke("ReloadingFinished", reloadTime);
-    }
-    private void ReloadingFinished()
-    {
-        bulletsLeft = magazineSize;
-        reloading = false;
-    }
 
     #region Setters
 
     public void SetShootForce(float v)
     {
         shootForce = v;
-    }
-    public void SetUpwardForce(float v)
-    {
-        upwardForce = v;
     }
     public void SetFireRate(float v)
     {
@@ -161,11 +137,6 @@ public class ProjectileGun : MonoBehaviour
     public void SetSpread(float v)
     {
         spread = v;
-    }
-    public void SetMagazinSize (float v)
-    {
-        int _v = Mathf.RoundToInt(v);
-        magazineSize = _v;
     }
     public void SetBulletsPerTap(float v)
     {
