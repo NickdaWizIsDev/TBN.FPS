@@ -12,7 +12,7 @@ public class InputManager : MonoBehaviour
     {
         input = new MyInputs();
         actions = input.Player;
-    }
+    }    
 
     private void OnEnable()
     {
