@@ -9816,12 +9816,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1377831206 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2166107986106409023, guid: ee9ef5652a2150547b95faaa48769405,
-    type: 3}
-  m_PrefabInstance: {fileID: 1377831202}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1399363137
 GameObject:
   m_ObjectHideFlags: 0
@@ -16412,14 +16406,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1828032386}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aecad8d62dca8944a01b82a9f34f677, type: 3}
+  m_Script: {fileID: 11500000, guid: 23a6d7672f88075408460a6ac2fafeae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 0}
-  loadingScreen: {fileID: 1377831206}
-  slider: {fileID: 1377831205}
-  transition: {fileID: 1377831204}
-  playerUI: {fileID: 0}
+  loadingScreen: {fileID: 0}
+  slider: {fileID: 0}
+  transition: {fileID: 0}
 --- !u!43 &1883233227
 Mesh:
   m_ObjectHideFlags: 0
