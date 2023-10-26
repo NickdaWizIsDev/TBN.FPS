@@ -10,6 +10,14 @@ public class EndOfLevel : MonoBehaviour
     public Slider slider;
     public Animator transition;
 
+    public void LoadLevelAsync(string levelName)
+    {
+        Debug.Log("Cargando nivel: " + levelName);
+
+        StartCoroutine(LoadAsynchronously(levelName));
+    }
+
+
     IEnumerator LoadAsynchronously(string levelName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(levelName);
@@ -27,4 +35,8 @@ public class EndOfLevel : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+            LoadLevelAsync("Level 2");
+    }
 }

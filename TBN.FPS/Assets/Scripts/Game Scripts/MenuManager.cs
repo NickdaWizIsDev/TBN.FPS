@@ -11,6 +11,7 @@ public class MenuManager : MonoBehaviour
     public Slider slider;
     public Animator transition;
     public GameObject playerUI;
+    private PlayerCam playerCam;
 
     public static bool isPaused;
 
@@ -22,6 +23,17 @@ public class MenuManager : MonoBehaviour
         {
             PauseGame();
         }
+    }
+
+    private void Awake()
+    {
+        loadingScreen.SetActive(false);
+        transition.SetTrigger("End");
+    }
+
+    private void Start()
+    {
+        playerCam = GetComponentInParent<PlayerCam>();
     }
 
     public void LoadLevelAsync(string levelName)
@@ -46,6 +58,7 @@ public class MenuManager : MonoBehaviour
 
             yield return null;
         }
+
     }
 
     public void QuitGame()
@@ -62,6 +75,12 @@ public class MenuManager : MonoBehaviour
         {
             previousTimeScale = Time.timeScale;
             Time.timeScale = 0;
+            if (playerCam != null)
+            {
+                playerCam.enabled = false;
+            }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
             pauseMenu.SetActive(true);
             playerUI.SetActive(false);
 
@@ -72,15 +91,25 @@ public class MenuManager : MonoBehaviour
             Time.timeScale = previousTimeScale;
             pauseMenu.SetActive(false);
             playerUI.SetActive(true);
-
-
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             isPaused = false;
+            if(playerCam != null)
+            {
+                playerCam.enabled = true;
+            }
         }
     }
 
     public void ResumeGame()
     {
         Debug.Log("Reanudando el juego");
+        if (playerCam != null)
+        {
+            playerCam.enabled = true;
+        }
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         Time.timeScale = 1;
         pauseMenu.SetActive(false);
     }

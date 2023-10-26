@@ -97,7 +97,7 @@ public class Damageable : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+        animator = GetComponentInParent<Animator>();
     }
 
     private void Start()
