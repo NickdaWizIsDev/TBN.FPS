@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class EndOfLevel : MonoBehaviour
+public class EndOfGame : MonoBehaviour
 {
     public GameObject loadingScreen;
     public Slider slider;
@@ -41,6 +41,6 @@ public class EndOfLevel : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-            LoadLevelAsync("Level 2");
+            LoadLevelAsync("GameEnd");
     }
 }
